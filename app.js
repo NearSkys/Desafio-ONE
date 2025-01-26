@@ -26,14 +26,14 @@ function exibirlistagem() {
     });
 }
 
-
 function limparNomes() {
     let nome = document.querySelector('input');
     nome.value = "";
 }
 
 function verificarNomes(input) {
-    return input.trim() === ""; 
+    const nome = input.trim();
+    return nome === "" || list.some(item => item.toLowerCase() === nome.toLowerCase());
 }
 
 function sortearAmigo() {
@@ -41,12 +41,21 @@ function sortearAmigo() {
         alert('Adicione pelo menos um nome para o sorteio');
         return;
     }
-    let amigoSorteado = list[Math.floor(Math.random() * list.length)];
-    document.querySelector('#resultado').innerHTML = `<li>O amigo secreto sorteado é: ${amigoSorteado}</li>`;
+
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
+    let resultadoHTML = [];
+    
+    for (let i = 0; i < shuffled.length; i += 2) {
+        if (i + 1 < shuffled.length) {
+            resultadoHTML.push(`${shuffled[i]} ↔ ${shuffled[i + 1]}`);
+        } else { 
+                resultadoHTML.push(shuffled[i]);
+        }
+    }
+
+    document.querySelector('#resultado').innerHTML = 
+        resultadoHTML.map(item => `<li>${item}</li>`).join('');
     document.querySelector('#listaAmigos').innerHTML = '';
+    document.querySelector('.section-title').innerHTML = `🎉 Sorteio realizado! 🎊`;
     list = [];
-    document.querySelector('.section-title').innerHTML = `🥳${amigoSorteado} Parabéns por ter ganho!🎉🎊`;
-
 }
-
-
