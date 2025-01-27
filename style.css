@@ -162,11 +162,11 @@ body {
 }
 
 .button-add {
-    background: var(--gradient-blue);
+    background: var(--color-accent);
     color: white;
     border: none;
     padding: 1rem 2.5rem;
-    border-radius: 20px;
+    border-radius: 15px;
     font-weight: 600;
     letter-spacing: 0.5px;
     position: relative;
